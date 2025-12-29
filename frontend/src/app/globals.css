@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: rgb(37 99 235);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+a:hover {
+  color: rgb(29 78 216);
+}
+
+.prose img {
+  border-radius: 0.5rem;
+}
+
+.prose pre {
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
