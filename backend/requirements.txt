@@ -23,6 +23,7 @@ Pillow==11.0.0
 
 # Environment Variables
 python-decouple==3.8
+dj-database-url==2.1.0
 
 # Utilities
 django-filter==23.5

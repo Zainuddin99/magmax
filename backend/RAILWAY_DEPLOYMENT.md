@@ -29,9 +29,22 @@ Make sure all the deployment files are committed to your repository:
 ### Step 3: Configure the Service
 
 1. Railway will create a service automatically
-2. Click on the service to configure it
-3. Go to **Settings** tab
-4. Set the **Root Directory** to `backend` (since your backend code is in the backend folder)
+2. Click on the service name (it will be named after your repository)
+3. In the service page, click on the **"Settings"** tab (top menu)
+4. Scroll down to find **"Root Directory"** section
+5. In the Root Directory field, type: `backend`
+   - This tells Railway that your Django code is inside the `backend` folder, not at the root
+   - If you leave it empty, Railway will look for code at the root level
+6. Click **"Save"** or the changes will auto-save
+
+**Visual Guide:**
+```
+Railway Dashboard
+  └── Your Project
+      └── Your Service (click here)
+          └── Settings Tab (click here)
+              └── Root Directory field → type "backend"
+```
 
 ### Step 4: Add PostgreSQL Database
 
