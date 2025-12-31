@@ -1,6 +1,7 @@
 # 🚀 Complete Setup Guide
 
-This guide will walk you through setting up both the **Django CMS backend** and **Next.js frontend** from scratch.
+This guide will walk you through setting up both the **Django CMS backend** and **Next.js frontend**
+from scratch on **macOS** and **Windows**.
 
 ---
 
@@ -8,10 +9,33 @@ This guide will walk you through setting up both the **Django CMS backend** and 
 
 Before starting, make sure you have:
 
-- ✅ **Python 3.11+** installed
+- ✅ **Python 3.11 or 3.12** installed (⚠️ **Important**: Python 3.14+ is not supported)
 - ✅ **Node.js 18+** and npm/yarn installed
 - ✅ **Docker Desktop** installed and running
 - ✅ **Git** installed
+
+### ⚠️ Python Version Requirements
+
+**Critical**: This project requires **Python 3.11 or 3.12**. Python 3.14+ is not compatible with
+Django 5.0.1.
+
+**Check your Python version:**
+
+```bash
+# macOS/Linux
+python3 --version
+
+# Windows (Git Bash)
+py --version
+# OR
+python --version
+```
+
+**If you have Python 3.14 or higher:**
+
+- **macOS/Linux**: Install Python 3.11 or 3.12 using pyenv or download from python.org
+- **Windows**: Download Python 3.11.x or 3.12.x from https://www.python.org/downloads/ and check
+  "Add Python to PATH" during installation
 
 ---
 
@@ -19,9 +43,25 @@ Before starting, make sure you have:
 
 ### 1.1 Start PostgreSQL Container
 
+**macOS/Linux:**
+
 ```bash
 # From project root directory
-cd /Users/zainuddin/bheja/magmax
+cd ~/path/to/magmax-submission
+
+# Start PostgreSQL database
+docker-compose up -d
+
+# Verify it's running
+docker ps
+# You should see: magmax_postgres container running on port 5432
+```
+
+**Windows (Git Bash):**
+
+```bash
+# From project root directory
+cd /c/Users/YourName/Downloads/magmax-submission
 
 # Start PostgreSQL database
 docker-compose up -d
@@ -45,17 +85,50 @@ cd backend
 
 ### 2.2 Create Virtual Environment
 
+**macOS/Linux:**
+
 ```bash
-# Create virtual environment
-python3 -m venv venv
+# Create virtual environment with Python 3.11 or 3.12
+python3.11 -m venv venv
+# OR if you have 3.12:
+# python3.12 -m venv venv
 
 # Activate virtual environment
-# On macOS/Linux:
 source venv/bin/activate
-# On Windows:
-# venv\Scripts\activate
 
 # You should see (venv) in your terminal prompt
+```
+
+**Windows (Git Bash):**
+
+```bash
+# First, check which Python versions you have
+py --list
+# OR check specific version
+py -3.11 --version
+py -3.12 --version
+
+# Create virtual environment with Python 3.11 or 3.12
+py -3.11 -m venv venv
+# OR if you have 3.12:
+# py -3.12 -m venv venv
+
+# Activate virtual environment (Git Bash)
+source venv/Scripts/activate
+
+# You should see (venv) in your terminal prompt
+```
+
+**Windows (Command Prompt/PowerShell):**
+
+```cmd
+# Create virtual environment
+py -3.11 -m venv venv
+# OR
+py -3.12 -m venv venv
+
+# Activate virtual environment
+venv\Scripts\activate
 ```
 
 ### 2.3 Install Dependencies
@@ -70,18 +143,40 @@ pip install -r requirements.txt
 
 **⏱️ This may take 2-3 minutes** - installing Django, Django CMS, and all dependencies.
 
+**⚠️ If you get errors:**
+
+- Make sure you're using Python 3.11 or 3.12 (not 3.14+)
+- Make sure your virtual environment is activated
+- Try: `python -m pip install -r requirements.txt`
+
 ### 2.4 Configure Environment Variables
+
+**macOS/Linux:**
 
 ```bash
 # Copy example environment file
 cp env.example .env
-
-# The .env file is already configured with defaults:
-# - Database: localhost:5432
-# - Database name: magmax_db
-# - User: postgres
-# - Password: postgres123
 ```
+
+**Windows (Git Bash):**
+
+```bash
+# Copy example environment file
+cp env.example .env
+```
+
+**Windows (Command Prompt):**
+
+```cmd
+copy env.example .env
+```
+
+**The .env file is already configured with defaults:**
+
+- Database: localhost:5432
+- Database name: magmax_db
+- User: postgres
+- Password: postgres123
 
 **Note**: You can edit `.env` if you need different database credentials.
 
@@ -125,6 +220,7 @@ python manage.py runserver
 ```
 
 **✅ Success**: You should see:
+
 ```
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
@@ -148,8 +244,22 @@ Quit the server with CONTROL-C.
 
 ### 3.2 Navigate to Frontend Directory
 
+**macOS/Linux:**
+
 ```bash
-cd /Users/zainuddin/bheja/magmax/frontend
+cd ~/path/to/magmax-submission/frontend
+```
+
+**Windows (Git Bash):**
+
+```bash
+cd /c/Users/YourName/Downloads/magmax-submission/frontend
+```
+
+**Windows (Command Prompt):**
+
+```cmd
+cd C:\Users\YourName\Downloads\magmax-submission\frontend
 ```
 
 ### 3.3 Install Dependencies
@@ -166,14 +276,32 @@ yarn install
 
 ### 3.4 Configure Environment Variables (Optional)
 
+**macOS/Linux:**
+
 ```bash
 # Copy example environment file
 cp env.example .env.local
+```
 
-# Edit .env.local if needed (defaults are already set):
-# NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api/v1
-# NEXT_PUBLIC_SITE_NAME=MagMax Blog
-# NEXT_PUBLIC_SITE_URL=http://localhost:3000
+**Windows (Git Bash):**
+
+```bash
+# Copy example environment file
+cp env.example .env.local
+```
+
+**Windows (Command Prompt):**
+
+```cmd
+copy env.example .env.local
+```
+
+**Edit .env.local if needed (defaults are already set):**
+
+```
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api/v1
+NEXT_PUBLIC_SITE_NAME=MagMax Blog
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
 **Note**: Defaults work fine for local development. Only edit if you need custom values.
@@ -189,6 +317,7 @@ yarn dev
 ```
 
 **✅ Success**: You should see:
+
 ```
 ▲ Next.js 16.1.1
 - Local:        http://localhost:3000
@@ -233,10 +362,54 @@ yarn dev
 
 ### Backend Commands
 
+**macOS/Linux:**
+
 ```bash
 # Activate virtual environment
 cd backend
 source venv/bin/activate
+
+# Run migrations
+python manage.py makemigrations
+python manage.py migrate
+
+# Create superuser
+python manage.py createsuperuser
+
+# Start server
+python manage.py runserver
+
+# Stop server
+Ctrl + C
+```
+
+**Windows (Git Bash):**
+
+```bash
+# Activate virtual environment
+cd backend
+source venv/Scripts/activate
+
+# Run migrations
+python manage.py makemigrations
+python manage.py migrate
+
+# Create superuser
+python manage.py createsuperuser
+
+# Start server
+python manage.py runserver
+
+# Stop server
+Ctrl + C
+```
+
+**Windows (Command Prompt):**
+
+```cmd
+# Activate virtual environment
+cd backend
+venv\Scripts\activate
 
 # Run migrations
 python manage.py makemigrations
@@ -294,6 +467,7 @@ docker-compose restart
 ### Issue: "Cannot connect to database"
 
 **Solution**:
+
 ```bash
 # Make sure Docker is running
 docker ps
@@ -307,6 +481,7 @@ docker-compose up -d
 ### Issue: "Port 8000 already in use" (Backend)
 
 **Solution**:
+
 ```bash
 # Use a different port
 python manage.py runserver 8080
@@ -318,10 +493,15 @@ python manage.py runserver 8080
 ### Issue: "Port 3000 already in use" (Frontend)
 
 **Solution**:
+
 ```bash
 # Kill the process using port 3000
 # On macOS/Linux:
 lsof -ti:3000 | xargs kill -9
+
+# On Windows (Git Bash):
+netstat -ano | findstr :3000
+taskkill /PID <PID> /F
 
 # Or use a different port
 PORT=3001 npm run dev
@@ -330,9 +510,20 @@ PORT=3001 npm run dev
 ### Issue: "Module not found" errors
 
 **Solution**:
+
 ```bash
-# Backend: Make sure venv is activated
-source venv/bin/activate
+# Backend: Make sure venv is activated and using correct Python version
+cd backend
+source venv/bin/activate  # macOS/Linux
+# OR
+source venv/Scripts/activate  # Windows Git Bash
+# OR
+venv\Scripts\activate  # Windows CMD
+
+# Verify Python version
+python --version  # Should show 3.11.x or 3.12.x (NOT 3.14+)
+
+# Reinstall dependencies
 pip install -r requirements.txt
 
 # Frontend: Reinstall dependencies
@@ -341,21 +532,51 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
+### Issue: "Python 3.14 compatibility errors" or "'super' object has no attribute 'dicts'"
+
+**Solution**: This means you're using Python 3.14+ which is not compatible.
+
+```bash
+# Check your Python version
+python --version
+
+# If it shows 3.14+, you need to install Python 3.11 or 3.12
+
+# macOS/Linux: Install Python 3.11/3.12 using pyenv
+pyenv install 3.11.9
+pyenv local 3.11.9
+
+# Windows: Download Python 3.11.x or 3.12.x from python.org
+# Then recreate venv:
+rm -rf venv  # or rmdir /s venv on Windows CMD
+py -3.11 -m venv venv  # Windows
+# OR
+python3.11 -m venv venv  # macOS/Linux
+```
+
 ### Issue: "Migrations not applied"
 
 **Solution**:
+
 ```bash
 cd backend
-source venv/bin/activate
+source venv/bin/activate  # macOS/Linux
+# OR
+source venv/Scripts/activate  # Windows Git Bash
 python manage.py migrate
 ```
 
 ### Issue: Images not showing
 
 **Solution**:
+
 1. Make sure backend is running on `http://localhost:8000`
 2. Check that image URLs in API response are correct
 3. Restart Next.js server after changing `next.config.ts`
+
+### Issue: "pip install giving errors" (Pillow build errors)
+
+**Solution**: This usually happens with Python 3.14+. Use Python 3.11 or 3.12 instead.
 
 ---
 
@@ -364,6 +585,8 @@ python manage.py migrate
 Use this checklist to verify your setup:
 
 ### Backend
+
+- [ ] Python 3.11 or 3.12 installed (NOT 3.14+)
 - [ ] Docker Desktop is running
 - [ ] PostgreSQL container is running (`docker ps`)
 - [ ] Virtual environment created and activated
@@ -376,6 +599,7 @@ Use this checklist to verify your setup:
 - [ ] Can access admin at http://localhost:8000/admin/
 
 ### Frontend
+
 - [ ] Node.js and npm/yarn installed
 - [ ] Dependencies installed (`npm install`)
 - [ ] `.env.local` file exists (optional)
@@ -384,6 +608,7 @@ Use this checklist to verify your setup:
 - [ ] Can see API data (articles list)
 
 ### Integration
+
 - [ ] Created test article in Django admin
 - [ ] Article appears on homepage
 - [ ] Can click article to see detail page
@@ -418,12 +643,14 @@ Once setup is complete:
 ## 🆘 Still Having Issues?
 
 1. **Check logs**: Look at terminal output for error messages
-2. **Verify versions**: Python 3.11+, Node.js 18+
+2. **Verify versions**:
+   - Python 3.11 or 3.12 (NOT 3.14+)
+   - Node.js 18+
 3. **Restart everything**: Stop all servers, restart Docker, start fresh
 4. **Check ports**: Make sure 8000 and 3000 are available
 5. **Review this guide**: Make sure you didn't skip any steps
+6. **Python version**: Most issues are caused by using Python 3.14+ - use 3.11 or 3.12
 
 ---
 
 **Happy Coding! 🚀**
-

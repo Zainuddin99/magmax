@@ -5,8 +5,9 @@ Get the MagMax backend up and running in 5 minutes!
 ## Method 1: Automated Setup (Recommended)
 
 ### Prerequisites
+
 - Docker Desktop installed and running
-- Python 3.11+ installed
+- **Python 3.11 or 3.12** installed (⚠️ **Important**: Python 3.14+ is NOT supported)
 
 ### Steps
 
@@ -50,8 +51,17 @@ docker-compose up -d
 cd backend
 
 # Create and activate virtual environment
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# macOS/Linux:
+python3.11 -m venv venv
+source venv/bin/activate
+
+# Windows (Git Bash):
+py -3.11 -m venv venv
+source venv/Scripts/activate
+
+# Windows (CMD):
+py -3.11 -m venv venv
+venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -81,11 +91,13 @@ python manage.py runserver
 ## 🎯 What to Do Next
 
 ### 1. Access Django Admin
+
 - URL: http://localhost:8000/admin/
 - Login with your superuser credentials
 - Create some categories and articles
 
 ### 2. Test the API
+
 - List articles: http://localhost:8000/api/v1/articles/
 - Browsable API: http://localhost:8000/api/v1/
 - See `API_TESTING.md` for detailed API documentation
@@ -142,18 +154,21 @@ python manage.py check
 ## 📊 Check If Everything Works
 
 ### Database Connection
+
 ```bash
 docker ps
 # Should show magmax_postgres container running
 ```
 
 ### API Health Check
+
 ```bash
 curl http://localhost:8000/api/v1/articles/
 # Should return JSON response (may be empty initially)
 ```
 
 ### Admin Access
+
 - Visit http://localhost:8000/admin/
 - You should see Django admin login page
 
@@ -162,34 +177,45 @@ curl http://localhost:8000/api/v1/articles/
 ## ❓ Common Issues
 
 ### Docker not running
+
 ```
 Error: Cannot connect to Docker daemon
 ```
+
 **Fix**: Start Docker Desktop application
 
 ### Port 8000 already in use
+
 ```
 Error: That port is already in use
 ```
+
 **Fix**: Use a different port
+
 ```bash
 python manage.py runserver 8080
 ```
 
 ### Database connection error
+
 ```
 Error: could not connect to server
 ```
-**Fix**: 
+
+**Fix**:
+
 1. Make sure Docker Desktop is running
 2. Check if PostgreSQL container is up: `docker ps`
 3. Restart container: `docker-compose restart`
 
 ### Module not found error
+
 ```
 ModuleNotFoundError: No module named 'django'
 ```
+
 **Fix**: Activate virtual environment
+
 ```bash
 source venv/bin/activate
 ```
@@ -199,6 +225,7 @@ source venv/bin/activate
 ## 🎉 Success!
 
 If you can:
+
 1. ✅ Access admin at http://localhost:8000/admin/
 2. ✅ See API at http://localhost:8000/api/v1/articles/
 3. ✅ Create and retrieve articles
@@ -228,6 +255,3 @@ If you can:
 ---
 
 **Happy Coding!** 🎊
-
-
-

@@ -3,8 +3,9 @@
 ## Prerequisites Check ✓
 
 Before starting, ensure you have:
+
 - [ ] Docker Desktop installed and **RUNNING**
-- [ ] Python 3.11+ installed
+- [ ] **Python 3.11 or 3.12** installed (⚠️ **Important**: Python 3.14+ is NOT supported)
 - [ ] Terminal/Command Line access
 
 ---
@@ -12,6 +13,7 @@ Before starting, ensure you have:
 ## 🚀 FIRST TIME SETUP
 
 ### 1. Start Docker Desktop
+
 **IMPORTANT**: Open Docker Desktop application and make sure it's running!
 
 ### 2. Start PostgreSQL Database
@@ -32,17 +34,27 @@ docker ps
 # Navigate to backend
 cd backend
 
-# Create virtual environment
-python3 -m venv venv
+# Create virtual environment with Python 3.11 or 3.12
+# macOS/Linux:
+python3.11 -m venv venv
+# OR
+python3.12 -m venv venv
+
+# Windows (Git Bash):
+# py -3.11 -m venv venv
 
 # Activate virtual environment
+# macOS/Linux:
 source venv/bin/activate
+# Windows (Git Bash):
+# source venv/Scripts/activate
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
 ### 4. Configure Environment (already done)
+
 The `.env` file is already created with proper settings!
 
 ### 5. Setup Database
@@ -105,17 +117,20 @@ python manage.py runserver
 Once the server is running:
 
 ### Django Admin Interface
+
 - **URL**: http://localhost:8000/admin/
 - **Login**: Use superuser credentials you created
 - **Purpose**: Create and manage articles, categories, users
 
 ### REST API
+
 - **Base URL**: http://localhost:8000/api/v1/
 - **Articles**: http://localhost:8000/api/v1/articles/
 - **Categories**: http://localhost:8000/api/v1/categories/
 - **Browsable API**: Visit in browser for interactive testing
 
 ### Django CMS
+
 - **URL**: http://localhost:8000/en/
 - **Purpose**: CMS page management (bonus feature)
 
@@ -142,6 +157,7 @@ curl -X POST http://localhost:8000/api/token/ \
 Expected: JSON with `access` and `refresh` tokens
 
 ### Test 3: Access Admin
+
 - Go to http://localhost:8000/admin/ in browser
 - Login with superuser credentials
 - You should see Django admin dashboard
@@ -187,34 +203,41 @@ Ctrl + C
 ## 🐛 TROUBLESHOOTING
 
 ### Issue: "ModuleNotFoundError"
-**Cause**: Virtual environment not activated
-**Fix**:
+
+**Cause**: Virtual environment not activated **Fix**:
+
 ```bash
 source venv/bin/activate
 ```
 
 ### Issue: "Port 8000 already in use"
+
 **Fix**: Use different port
+
 ```bash
 python manage.py runserver 8080
 ```
 
 ### Issue: "Could not connect to database"
-**Cause**: Docker not running or container stopped
-**Fix**:
+
+**Cause**: Docker not running or container stopped **Fix**:
+
 1. Start Docker Desktop
 2. Run: `docker-compose up -d`
 3. Check: `docker ps` (should show magmax_postgres)
 
 ### Issue: "No such table" error
-**Cause**: Migrations not run
-**Fix**:
+
+**Cause**: Migrations not run **Fix**:
+
 ```bash
 python manage.py migrate
 ```
 
 ### Issue: Static files not loading
+
 **Fix**:
+
 ```bash
 python manage.py collectstatic --noinput
 ```
@@ -323,6 +346,3 @@ curl http://localhost:8000/api/v1/articles/my-first-api-article/
 ---
 
 **You're all set! Happy coding! 🚀**
-
-
-

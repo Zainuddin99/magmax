@@ -2,10 +2,21 @@
 
 # MagMax Backend Setup Script
 # This script automates the Django backend setup process
+# 
+# Requirements: Python 3.11 or 3.12 (Python 3.14+ is NOT supported)
 
 echo "🚀 MagMax Backend Setup"
 echo "======================="
 echo ""
+
+# Check Python version
+PYTHON_VERSION=$(python3 --version 2>&1 | awk '{print $2}' | cut -d. -f1,2)
+if [[ $(echo "$PYTHON_VERSION >= 3.14" | bc -l 2>/dev/null) -eq 1 ]] || [[ "$PYTHON_VERSION" == "3.14"* ]]; then
+    echo "❌ Error: Python 3.14+ is not supported. Please use Python 3.11 or 3.12"
+    echo "   Current version: $(python3 --version)"
+    echo "   Install Python 3.11 or 3.12 and try again"
+    exit 1
+fi
 
 # Check if we're in the backend directory
 if [ ! -f "manage.py" ]; then
@@ -16,7 +27,15 @@ fi
 # Check if virtual environment exists
 if [ ! -d "venv" ]; then
     echo "📦 Creating virtual environment..."
-    python3 -m venv venv
+    # Try Python 3.11 first, then 3.12, then fallback to python3
+    if command -v python3.11 &> /dev/null; then
+        python3.11 -m venv venv
+    elif command -v python3.12 &> /dev/null; then
+        python3.12 -m venv venv
+    else
+        echo "⚠️  Warning: python3.11 or python3.12 not found, using python3"
+        python3 -m venv venv
+    fi
 fi
 
 # Activate virtual environment

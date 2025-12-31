@@ -1,6 +1,8 @@
 # MagMax - Article/Blog Platform
 
-A modern, content-driven web application built with **Django CMS** (backend) and **Next.js** (frontend). This platform allows content management through Django CMS admin interface and exposes content via REST API for consumption by the Next.js frontend.
+A modern, content-driven web application built with **Django CMS** (backend) and **Next.js**
+(frontend). This platform allows content management through Django CMS admin interface and exposes
+content via REST API for consumption by the Next.js frontend.
 
 ## 🏗️ Architecture
 
@@ -28,6 +30,7 @@ magmax/
 ## ✨ Features
 
 ### Backend Features
+
 - ✅ Django CMS for content management
 - ✅ Article CRUD with rich text support
 - ✅ Category/Tag management
@@ -42,6 +45,7 @@ magmax/
 - ✅ Responsive admin interface
 
 ### API Features
+
 - Article listing with pagination
 - Article detail by slug
 - Category management
@@ -60,7 +64,8 @@ magmax/
 ### Quick Setup Summary
 
 1. **Start Database**: `docker-compose up -d`
-2. **Backend**: `cd backend && source venv/bin/activate && pip install -r requirements.txt && python manage.py migrate && python manage.py createsuperuser && python manage.py runserver`
+2. **Backend**:
+   `cd backend && source venv/bin/activate && pip install -r requirements.txt && python manage.py migrate && python manage.py createsuperuser && python manage.py runserver`
 3. **Frontend**: `cd frontend && npm install && npm run dev`
 
 **For detailed instructions with troubleshooting, see [SETUP_GUIDE.md](./SETUP_GUIDE.md)**
@@ -71,7 +76,7 @@ magmax/
 
 ### Prerequisites
 
-- Python 3.11+
+- **Python 3.11 or 3.12** (⚠️ **Important**: Python 3.14+ is NOT supported)
 - Docker Desktop (for PostgreSQL)
 - pip and virtualenv
 
@@ -95,14 +100,24 @@ You should see the `magmax_postgres` container running on port 5432.
 # Navigate to backend directory
 cd backend
 
-# Create virtual environment
-python3 -m venv venv
+# Create virtual environment with Python 3.11 or 3.12
+# macOS/Linux:
+python3.11 -m venv venv
+# OR
+python3.12 -m venv venv
+
+# Windows (Git Bash):
+py -3.11 -m venv venv
+# OR
+py -3.12 -m venv venv
 
 # Activate virtual environment
-# On macOS/Linux:
+# macOS/Linux:
 source venv/bin/activate
-# On Windows:
-# venv\Scripts\activate
+# Windows (Git Bash):
+source venv/Scripts/activate
+# Windows (CMD/PowerShell):
+venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -180,6 +195,7 @@ python manage.py runserver
 ### Accessing Admin Interface
 
 1. **Django Admin**: http://localhost:8000/admin/
+
    - Login with superuser credentials
    - Manage articles, categories, users
 
@@ -192,6 +208,7 @@ python manage.py runserver
 1. Go to http://localhost:8000/admin/articles/article/
 2. Click "Add Article"
 3. Fill in the form:
+
    - **Title**: Article title (slug auto-generates)
    - **Excerpt**: Brief description
    - **Content**: Full article content
@@ -217,6 +234,7 @@ python manage.py runserver
 ## 📡 API Documentation
 
 ### Base URL
+
 ```
 http://localhost:8000/api/v1/
 ```
@@ -224,6 +242,7 @@ http://localhost:8000/api/v1/
 ### Authentication
 
 #### Get JWT Token
+
 ```bash
 POST /api/token/
 Content-Type: application/json
@@ -241,6 +260,7 @@ Response:
 ```
 
 #### Refresh Token
+
 ```bash
 POST /api/token/refresh/
 Content-Type: application/json
@@ -251,6 +271,7 @@ Content-Type: application/json
 ```
 
 #### Using Token
+
 ```bash
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGc...
 ```
@@ -260,6 +281,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGc...
 #### Articles
 
 ##### List All Articles (Published)
+
 ```bash
 GET /api/v1/articles/
 
@@ -271,16 +293,19 @@ GET /api/v1/articles/?ordering=-published_date
 ```
 
 ##### Get Published Articles Only
+
 ```bash
 GET /api/v1/articles/published/
 ```
 
 ##### Get Featured Articles
+
 ```bash
 GET /api/v1/articles/featured/
 ```
 
 ##### Get Article Detail
+
 ```bash
 GET /api/v1/articles/{slug}/
 
@@ -288,12 +313,14 @@ Example: GET /api/v1/articles/my-first-article/
 ```
 
 ##### Get My Articles (Authenticated)
+
 ```bash
 GET /api/v1/articles/my_articles/
 Authorization: Bearer <token>
 ```
 
 ##### Create Article (Authenticated)
+
 ```bash
 POST /api/v1/articles/
 Authorization: Bearer <token>
@@ -312,6 +339,7 @@ Content-Type: application/json
 ```
 
 ##### Update Article (Authenticated)
+
 ```bash
 PUT /api/v1/articles/{slug}/
 Authorization: Bearer <token>
@@ -324,6 +352,7 @@ Content-Type: application/json
 ```
 
 ##### Delete Article (Authenticated)
+
 ```bash
 DELETE /api/v1/articles/{slug}/
 Authorization: Bearer <token>
@@ -332,21 +361,25 @@ Authorization: Bearer <token>
 #### Categories
 
 ##### List Categories
+
 ```bash
 GET /api/v1/categories/
 ```
 
 ##### Get Category Detail
+
 ```bash
 GET /api/v1/categories/{slug}/
 ```
 
 ##### Get Articles in Category
+
 ```bash
 GET /api/v1/categories/{slug}/articles/
 ```
 
 ##### Create Category (Authenticated)
+
 ```bash
 POST /api/v1/categories/
 Authorization: Bearer <token>
@@ -361,6 +394,7 @@ Content-Type: application/json
 ### Response Format
 
 #### Article List Response
+
 ```json
 {
   "count": 10,
@@ -398,6 +432,7 @@ Content-Type: application/json
 ```
 
 #### Article Detail Response
+
 ```json
 {
   "id": 1,
@@ -474,6 +509,7 @@ Visit http://localhost:8000/api/v1/articles/ in your browser for an interactive 
 ## 📊 Database Schema
 
 ### Article Model
+
 - `id`: Primary key
 - `title`: Article title (max 200 chars)
 - `slug`: URL-friendly slug (unique)
@@ -491,6 +527,7 @@ Visit http://localhost:8000/api/v1/articles/ in your browser for an interactive 
 - `reading_time`: Calculated property
 
 ### Category Model
+
 - `id`: Primary key
 - `name`: Category name (unique)
 - `slug`: URL-friendly slug (unique)
@@ -549,30 +586,38 @@ python manage.py collectstatic
 ## 🐛 Troubleshooting
 
 ### Database Connection Error
+
 ```
 Error: could not connect to server
 ```
+
 **Solution**: Make sure Docker Desktop is running and PostgreSQL container is up:
+
 ```bash
 docker-compose up -d
 docker ps
 ```
 
 ### Port Already in Use
+
 ```
 Error: That port is already in use
 ```
+
 **Solution**: Run on different port or kill process:
+
 ```bash
 python manage.py runserver 8080
 ```
 
 ### Static Files Not Loading
+
 ```bash
 python manage.py collectstatic --noinput
 ```
 
 ### Media Files Not Displaying
+
 Check `MEDIA_ROOT` and `MEDIA_URL` in settings.py and ensure media URLs are configured in urls.py.
 
 ---
@@ -592,6 +637,7 @@ Check `MEDIA_ROOT` and `MEDIA_URL` in settings.py and ensure media URLs are conf
 ## 🤝 Contributing
 
 This is a test assignment project. For production use, consider:
+
 - Adding comprehensive tests
 - Implementing caching (Redis)
 - Adding rate limiting
@@ -610,6 +656,7 @@ This project is created as a developer test assignment.
 ## 👨‍💻 Developer Notes
 
 **Completed Backend Features:**
+
 - ✅ Django 5.0 + Django CMS 4.1
 - ✅ PostgreSQL database with Docker
 - ✅ Article model with SEO fields
@@ -626,6 +673,7 @@ This project is created as a developer test assignment.
 - ✅ Comprehensive API documentation
 
 ### Frontend (Next.js)
+
 - ✅ Next.js 14 App Router with Tailwind CSS
 - ✅ Public article list (SSR/ISR)
 - ✅ Article detail pages with SEO meta and OG tags
@@ -633,6 +681,7 @@ This project is created as a developer test assignment.
 - ✅ No frontend auth needed (public-only)
 
 #### Run Frontend
+
 ```bash
 cd frontend
 cp env.example .env.local   # optional - defaults are set
@@ -641,6 +690,3 @@ npm run dev   # http://localhost:3000
 ```
 
 **Ready for Frontend Integration!** 🚀
-
-
-
