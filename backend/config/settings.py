@@ -213,3 +213,7 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters',
 )
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://magmax-production.up.railway.app",
+]
